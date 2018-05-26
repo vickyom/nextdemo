@@ -1,8 +1,7 @@
 import { combineReducers } from 'redux'
-import movReducer  from "./pages/movies/reducer";
-import evtReducer  from "./pages/events/reducer";
+import movReducer  from "./reducer/reducer";
+
 
 export default combineReducers({
-    movReducer,
-    evtReducer
+    movReducer
   })

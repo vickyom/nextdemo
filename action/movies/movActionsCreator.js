@@ -5,7 +5,6 @@ import { MoviesIsLoading, loadMovSuccess } from './moviesAction';
 export function loadMovs() {
     return function(dispatch, getState) {
         dispatch(MoviesIsLoading(true));
-        // API call
         return Api.getAllMovies()
             .then(movs => {
                 dispatch(loadMovSuccess(movs));

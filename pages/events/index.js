@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import Api from '../../helper/BMSApi'
-import makeStore from '../../store'
-import {EventsIsLoading,loadEvtSuccess} from './eventsAction'
 import withRedux from "next-redux-wrapper";
 import Header from '../../components/header'
 

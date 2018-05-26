@@ -1,22 +1,17 @@
 import React, { Component } from 'react';
 import withRedux from 'next-redux-wrapper';
 import makeStore from '../../store';
-import { loadMovs } from './movActionsCreator';
-import { MoviesIsLoading } from './moviesAction';
-import Header from '../../components/header';
-import Api from '../../helper/BMSApi';
+import { loadMovs } from '../../action/movies/movActionsCreator';
+
 
 class movies extends Component {
-    static async getInitialProps({ store }) {
-      store.dispatch(loadMovs());
-      // const moviesData = await store.dispatch(loadMovs());
-        // console.log('getInitialProps - - - - -  ', moviesData);
-        // const movies = await Api.getAllMovies()
-        // store.dispatch({ type: 'LOAD_MOVIE_SUCCESS', movies});
-
-        // return {
-        //     moviesData,
-        // };
+    static async getInitialProps({req, store }) {
+       // const isServer = req ? true : false
+        //isServer &&  await store.dispatch(loadMovs())
+        store.dispatch(loadMovs())
+    }
+    componentDidMount(){
+        this.props.dispatch(loadMovs())
     }
     render() {
          console.log("render - - -> --- >",this.props.moviesData);
@@ -25,8 +20,7 @@ class movies extends Component {
         } else {
             return (
                 <div className="row">
-                    {/* <Header /> */}
-                    <div className="col-md-12">
+                    {/* <div className="col-md-12">
                         <div className="form-group col-md-4">
                             <label htmlFor="sel1">Select Popular movies:</label>
                             <select className="form-control" id="sel1">
@@ -36,13 +30,13 @@ class movies extends Component {
                                 <option>4</option>
                             </select>
                         </div>
-                    </div>
-                    <div className="col-md-12">
+                    </div> */}
+                    
                     {this.props.moviesData &&
                         this.props.moviesData.map(mov => (
                             <div className="col-md-3">
                                 <div className="card">
-                                    {/* <img style={imgStyle} class="card-img-top" src={`http://image.tmdb.org/t/p/w185//${mov.poster_path}`} alt="Card image"/> */}
+                                    <img style={imgStyle} className="card-img-top" src={`http://image.tmdb.org/t/p/w185//${mov.poster_path}`} alt="Card image"/>
                                     <div className="card-body">
                                         <h6 className="card-title">
                                             {mov.title}
@@ -64,7 +58,7 @@ class movies extends Component {
                             </div>
                         ))}
                 </div>
-              </div>
+              
             );
         }
     }
@@ -74,7 +68,9 @@ var imgStyle = {
 };
 
 function mapStateToProps(state) {
-    console.log('mapStateToProps - - -> --- >', state);
+    
+        console.log('mapStateToProps - - -> --- >', state);
+    
     return {
         moviesData: state.movReducer.moviesData,
         isLoading: state.movReducer.MovisLoading,
